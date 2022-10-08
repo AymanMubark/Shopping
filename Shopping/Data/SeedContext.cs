@@ -29,12 +29,8 @@ namespace Shopping.Data
                 {
                     await roleManager.CreateAsync(new IdentityRole<Guid> { Name = role });
                 }
-                //if (!await context.Users.AnyAsync())
-                //{
-                //    var admin = new Admin { UserName = "Admin", Email = "admin@admin.com" };
-                //    await userManager.CreateAsync(admin, "P@$$0rd");
-                //    await userManager.AddToRoleAsync(admin, nameof(Admin));
-                //}
+
+            
             }
         }
     }

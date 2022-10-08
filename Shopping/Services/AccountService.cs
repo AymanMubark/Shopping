@@ -28,6 +28,42 @@ namespace Shopping.Services
             _userManager = userManager;
         }
 
+        public async Task<AddressResponseDTO> GetUserAddress(Guid userId)
+        {
+            AppUser? user = await _db.AppUsers.Include(x=>x.Address).AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("user invalid");
+            }
+            if (user.Address == null)
+            {
+                user.Address = new Address();
+                _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+            }
+                return _mapper.Map<AddressResponseDTO>(user.Address);
+        }
+
+        public async Task<AddressResponseDTO> UpdateAddress(Guid userId, AddressResponseDTO model)
+        {
+            AppUser? user = await _db.AppUsers.Include(x => x.Address).AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("user invalid");
+            }
+            if(user.Address == null)
+            {
+                user.Address = new Address();
+            }
+            user.Address.Region  = model.Region;
+            user.Address.City = model.City;
+            user.Address.Details = model.Details;
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
+            
+            return _mapper.Map<AddressResponseDTO>(user.Address);
+        }
+
         public async Task<LoginResponseDTO> Login(string email, string password)
         {
             AppUser? user = await _db.AppUsers.AsNoTracking().SingleOrDefaultAsync(x => x.UserName == email);
@@ -80,6 +116,31 @@ namespace Shopping.Services
                 UserName =user.UserName,
                 Token = await _tokenService.CreateToken(user),
             };
+        }
+
+        public async Task<AppUserResponseDTO> GetUserById(Guid Id)
+        {
+            AppUser? user = await _db.AppUsers.Include(x=>x.Address).SingleOrDefaultAsync(x=>x.Id == Id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("account not exist");
+            }
+            return _mapper.Map<AppUserResponseDTO>(user);
+        }
+
+
+        public async Task UpdateUserProfile(Guid userId, AppUserResponseDTO model)
+        {
+            AppUser? user = await _db.AppUsers.AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("user invalid");
+            }
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
         }
     }
 }

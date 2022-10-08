@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shopping.DTOs;
 using Shopping.IServices;
 using Shopping.Models;
+using Shopping.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,27 +14,19 @@ namespace Shopping.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : Controller
+    public class CategoryController : Controller
     {
-        private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
 
-        public ProductController(IProductService productService)
+        public CategoryController(ICategoryService categoryService)
         {
-            this.productService = productService;
+            this.categoryService = categoryService;
         }
 
-        // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<ProductResponseDTO>>  GetAll()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductResponseDTO>>  Get(Guid id)
-        {
-            return await productService.GetProductById(id);
+            return Ok(await categoryService.GetAllCategory());
         }
 
     }

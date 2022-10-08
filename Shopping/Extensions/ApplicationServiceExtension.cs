@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Shopping.Data;
+using Shopping.Helpers;
 using Shopping.IServices;
 using Shopping.Mapper;
 using Shopping.Services;
@@ -11,15 +12,17 @@ namespace Shopping.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration Configuration)
         {
-            //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-        //    services.AddScoped<IPhotoService, PhotoService>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
            
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
             services.AddDbContext<DataContext>(option => option.
-            UseSqlServer(Configuration.GetConnectionString("Mu3eenContext")));
+            UseSqlServer(Configuration.GetConnectionString("DataContext")));
 
 
             services.AddSwaggerGen(c =>
