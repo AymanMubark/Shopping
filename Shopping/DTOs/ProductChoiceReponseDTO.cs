@@ -6,6 +6,6 @@ namespace Shopping.DTOs
     {
         public Guid Id { get; set; }
         public double PriceIncrease { get; set; }
-        public string Name { get; set; } 
+        public ChoiceResponseDTO Choice { get; set; }
     }
 }

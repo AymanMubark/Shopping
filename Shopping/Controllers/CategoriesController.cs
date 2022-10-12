@@ -14,19 +14,19 @@ namespace Shopping.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoryController : Controller
+    public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProductResponseDTO>>  GetAll()
+        public async Task<ActionResult<ProductResponseDTO>>  GetAll(Guid? parentId)
         {
-            return Ok(await categoryService.GetAllCategory());
+            return Ok(await categoryService.GetAllCategory(parentId));
         }
 
     }

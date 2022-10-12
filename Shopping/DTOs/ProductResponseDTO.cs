@@ -14,7 +14,7 @@ namespace Shopping.DTOs
         public double? OldPrice { get; set; }
         public virtual CategoryResponseDTO? Category { get; set; }
         public virtual List<ProductImageResponseDTO> ProductImages { get; set; }
-        public virtual List<ChoiceCategoryResponseDTO> ProductChoices { get; set; }
+        public virtual List<ProductChoiceReponseDTO>? ProductChoices { get; set; }
         public virtual List<ProductInformationResponseDTO> ProductInformations { get; set; }
         
     }

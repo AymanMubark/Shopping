@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using CloudinaryDotNet.Actions;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Data;
 using Shopping.DTOs;
@@ -17,10 +18,15 @@ namespace Shopping.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CategoryResponseDTO>> GetAllCategory()
+        public async Task<List<CategoryResponseDTO>> GetAllCategory(Guid? parentId)
         {
-            var list = await _db.Categories.ToListAsync();
-            return _mapper.Map<List<CategoryResponseDTO>>(list);
+
+            var categories = await _db.Categories
+                .Include(x=>x.SubCategories)
+                .Where(e => e.ParentId == parentId) // <-- then apply the root filter
+                .ToListAsync();
+
+            return _mapper.Map<List<CategoryResponseDTO>>(categories);
         }
     }
 }

@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shopping.Entites
 {
-    public class Category
+    public class Category : Base
     {
-        [Key]
-        public Guid Id { get; set; }
         public string Name { get; set; } = "";
+        public Guid? ParentId { get; set; }
+        public virtual Category? Parent { get; set; }
+        public virtual ICollection<Category>? SubCategories { get; set; }
     }
 }
 

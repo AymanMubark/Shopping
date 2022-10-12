@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.DTOs;
+using Shopping.Extensions;
 using Shopping.IServices;
 using Shopping.Models;
 
@@ -29,9 +30,11 @@ namespace Shopping.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductResponseDTO>>> GetProducts()
+        public async Task<ActionResult<PagedList<ProductResponseDTO>>> GetProducts([FromQuery] ProductSearchDTO model)
         {
-            return await productService.GetProducts();
+            var result = await productService.GetProducts(model);
+            Response.AddPaginationHeader(result.CurrentPage, result.PageSize, result.TotalCount, result.TotalPages);
+            return result;
         }
 
     }

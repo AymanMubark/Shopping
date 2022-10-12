@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shopping.Entites
 {
-    public class ProductChoice
+    public class ProductChoice: Base
     {
-        [Key]
-        public Guid Id { get; set; }
         public Guid? ProductId { get; set; }
         public double PriceIncrease { get; set; } = 0;
         public virtual Product Product { get; set; } = null!;

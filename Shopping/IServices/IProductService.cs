@@ -6,7 +6,7 @@ namespace Shopping.IServices
 {
     public interface IProductService
     {
-        public Task<List<ProductResponseDTO>> GetProducts();
+        public Task<PagedList<ProductResponseDTO>> GetProducts(ProductSearchDTO model);
         public Task<ProductResponseDTO> GetProductById(Guid id);
     }
 }

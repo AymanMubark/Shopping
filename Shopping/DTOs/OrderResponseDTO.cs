@@ -1,15 +1,15 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using Shopping.Entites;
 using Shopping.Entites.Enums;
 
-namespace Shopping.Entites
+namespace Shopping.DTOs
 {
-    public class Order : Base
+    public class OrderResponseDTO
     {
+        public Guid Id { get; set; }
         public string OrderId { get; set; } = "";
-        public  OrderStatus Status { get; set; } = OrderStatus.New;
-        public Guid? AppUserId { get; set; }
-        public virtual AppUser? AppUser { get; set; }
+        public DateTime CreatedDate { get; set; } 
+        public string Status { get; set; } 
         public string Phone { get; set; } = "";
         public string Email { get; set; } = "";
         public string FirstName { get; set; } = "";
@@ -21,7 +21,7 @@ namespace Shopping.Entites
         public string Details { get; set; } = "";
         public string ZipCode { get; set; } = "";
         public string Note { get; set; } = "";
-        public ICollection<OrderDetail> OrderDetails { get; set; } = null!;
+        public ICollection<OrderDetailResponseDTO> OrderDetails { get; set; } = null!;
     }
 }
 

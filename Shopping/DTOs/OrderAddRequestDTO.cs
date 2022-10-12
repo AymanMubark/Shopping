@@ -5,9 +5,9 @@ namespace Shopping.DTOs
 {
     public class OrderAddRequestDTO
     {
+        public Guid? AppUserId { get; set; }
         public string Phone { get; set; } = "";
         public string Email { get; set; } = "";
-        public string Apartment { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public string Region { get; set; } = "";
