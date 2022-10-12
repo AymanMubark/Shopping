@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+  shopping:
+    image: ${DOCKER_REGISTRY-}shopping
+    build:
+      context: .
+      dockerfile: Shopping/Dockerfile
