@@ -29,6 +29,11 @@ namespace Shopping.Controllers
             return Ok(await categoryService.GetAllCategory(parentId));
         }
 
+        [HttpGet("Check")]
+        public string  Check()
+        {
+            return "Fuck";
+        }
     }
 }
 

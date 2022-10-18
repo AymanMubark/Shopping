@@ -1,4 +1,1 @@
-sajlidhmasio;dkj,mnasd
-asdsadjasipo'd;klasjhdsa
-sds\adyasjdui;sa'kjdkjksahdsa
-saudkasip;dksksjadau;/dlsi
+ docker build -f Shopping/Dockerfile  -t csaymandocker/shopping . 
