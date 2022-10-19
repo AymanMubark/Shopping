@@ -97,6 +97,7 @@ namespace Shopping.Services
             {
                 UserName = model.UserName,
                 Email = model.Email,
+                
             };
 
             //if (model.Image != null)
@@ -107,7 +108,9 @@ namespace Shopping.Services
             //    user.ImageId = result.PublicId;
             //}
 
-            await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+               throw new AppException("User register field");
 
             await _userManager.AddToRoleAsync(user, "AppUser");
 

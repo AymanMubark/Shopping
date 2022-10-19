@@ -22,8 +22,11 @@ namespace Shopping.Extensions
            
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
-            services.AddDbContext<DataContext>(option => option.
-            UseSqlServer(Configuration.GetConnectionString("DataContext")));
+            services.AddDbContext<DataContext>(option => {
+                option.UseSqlServer(Configuration.GetConnectionString("DataContext"));
+                option.EnableDetailedErrors();
+                option.EnableSensitiveDataLogging();
+               });
 
 
             services.AddSwaggerGen(c =>
